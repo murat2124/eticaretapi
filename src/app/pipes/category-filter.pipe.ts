@@ -5,10 +5,12 @@ import { Product } from '../Models/product';
   name: 'categoryFilter',
 })
 export class CategoryFilterPipe implements PipeTransform {
-  transform(products: Product[], categoryId: number): Product[] {
-    if (categoryId === 0) {
-      return products; // "Tüm Kategoriler" seçildiğinde tüm ürünleri göster
-    }
-    return products.filter((product) => product.categoryId === categoryId);
+  transform(products: Product[] | null | undefined, categoryId: number): Product[] {
+    if (!products) return [];
+
+    const id = Number(categoryId); // tipi garanti altına al
+    if (id === 0) return products;
+
+    return products.filter((product) => product.categoryId === id);
   }
 }

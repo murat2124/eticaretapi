@@ -1,17 +1,18 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Product } from '../Models/product';
+import { Product } from 'src/app/Models/product';
 
 @Pipe({
   name: 'filterPipe',
 })
 export class FilterPipe implements PipeTransform {
-  transform(value: Product[], filterText: string): Product[] {
-    filterText = filterText ? filterText.toLowerCase() : '';
-    return filterText
-      ? value.filter((p) =>
-          p.name.toLowerCase().includes(filterText) ||
-          p.description.toLowerCase().includes(filterText)
-        )
-      : value;
+  transform(products: Product[], filterText: string): Product[] {
+    if (!filterText) {
+      return products;
+    }
+    return products.filter(
+      (product) =>
+        product.name.toLowerCase().includes(filterText.toLowerCase()) ||
+        product.description.toLowerCase().includes(filterText.toLowerCase())
+    );
   }
 }
