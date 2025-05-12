@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <h2>Yeni Ürün Ekle</h2>
+
+  <!-- Form Başlangıcı -->
+  <form [formGroup]="productAddForm" (ngSubmit)="onSubmit()">
+    <!-- Ürün Adı -->
+    <div class="form-group">
+      <label for="name">Ürün Adı</label>
+      <input type="text" class="form-control" id="name" formControlName="name" placeholder="Ürün adı girin" />
+    </div>
+
+    <!-- Açıklama -->
+    <div class="form-group">
+      <label for="description">Açıklama</label>
+      <textarea class="form-control" id="description" formControlName="description" rows="3" placeholder="Ürün açıklaması girin"></textarea>
+    </div>
+
+    <!-- Fiyat -->
+    <div class="form-group">
+      <label for="price">Fiyat</label>
+      <input type="number" class="form-control" id="price" formControlName="price" placeholder="Fiyat girin" />
+    </div>
+
+    <!-- Stok -->
+    <div class="form-group">
+      <label for="stock">Stok Miktarı</label>
+      <input type="number" class="form-control" id="stock" formControlName="stock" placeholder="Stok miktarını girin" />
+    </div>
+
+    <!-- Oluşturulma Tarihi -->
+    <div class="form-group">
+      <label for="createdDate">Oluşturulma Tarihi</label>
+      <input type="date" class="form-control" id="createdDate" formControlName="createdDate" />
+    </div>
+
+    <!-- Kategori -->
+    <div class="form-group">
+      <label for="categoryId">Kategori</label>
+      <select class="form-control" id="categoryId" formControlName="categoryId">
+        <option *ngFor="let category of categories" [value]="category.id">{{ category.name }}</option>
+      </select>
+    </div>
+
+    <!-- Kaydet Butonu -->
+   <button 
+  type="submit" 
+  class="btn btn-success col-12" 
+  [disabled]="!productAddForm.valid"
+  style="font-weight: bold; transition: background-color 0.3s ease;">
+  Kaydet
+</button>
+  </form>
+  <!-- Form Bitişi -->
+</div>

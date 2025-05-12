@@ -1,0 +1,55 @@
+<!-- Arama kutusu -->
+<div class="mb-3">
+  <label for="filtertext" class="form-label">Ürün Arama</label>
+  <input type="text" [(ngModel)]="filterText" class="form-control" id="filtertext" placeholder="arama ifadesi giriniz.">
+</div>
+
+<!-- Seçilen filtre bilgisi -->
+<div *ngIf="filterText" class="alert alert-primary">
+  "{{ filterText }}" aradınız...
+</div>
+
+<!-- Kategori seçimi -->
+<div class="mb-3">
+  <label for="categorySelect" class="form-label">Kategori Seç</label>
+  <select [(ngModel)]="filterCategoryId" class="form-select" id="categorySelect">
+    <option [ngValue]="0">Tüm Kategoriler</option>
+    <option *ngFor="let category of categories" [ngValue]="category.id">
+      {{ category.name }}
+    </option>
+  </select>
+</div>
+
+<!-- Ürün tablosu -->
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Ad</th>
+      <th>Açıklama</th>
+      <th>Fiyat</th>
+      <th>Stok</th>
+      <th>Oluşturulma Tarihi</th>
+      <th>Kategori ID</th>
+      <th>İşlem</th>
+    </tr>
+  </thead>
+  <tbody *ngIf="products?.length; else noData">
+    <tr *ngFor="let product of products 
+                          | filterPipe:filterText 
+                          | categoryFilter:filterCategoryId">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.price | currency }}</td>
+      <td>{{ product.stock }}</td>
+      <td>{{ product.createdDate | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ product.categoryId }}</td>
+      <td><button type="button" class="btn btn-success btn-xs">Sepete Ekle</button></td>
+    </tr>
+  </tbody>
+</table>
+
+<ng-template #noData>
+  <tr><td colspan="8">No data found</td></tr>
+</ng-template>

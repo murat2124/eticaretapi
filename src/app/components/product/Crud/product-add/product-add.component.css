@@ -1,0 +1,19 @@
+/* Kaydet Butonunu Özelleştir */
+.btn-success {
+  background-color: #28a745;  /* Yeşil tonunda başlangıç rengi */
+  border-color: #28a745;
+  color: white;
+  font-weight: bold;
+  transition: background-color 0.3s ease, transform 0.2s ease-in-out;
+}
+
+.btn-success:hover {
+  background-color: #218838;  /* Hover efekti */
+  border-color: #1e7e34;
+  transform: scale(1.05);  /* Hoverda buton büyür */
+}
+
+.btn-success:active {
+  background-color: #1e7e34;  /* Tıklama anındaki renk */
+  border-color: #1c7430;
+}

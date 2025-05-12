@@ -1,0 +1,16 @@
+<ul class="list-group" *ngFor="let category of categorys" (click)="setCurrentCategory(category)">
+  
+  <!-- Kategori ismini içeren <li> elemanı -->
+  <li class="list-group-item"
+      [class]="listGroupCategory(category)"
+      routerLink="/products/category/{{category.id}}">
+    {{category.name}}
+  </li>
+  
+  <!-- Açıklama içeren <li> elemanı, arka plan gri ve metin yeşil -->
+  <li class="list-group-item"
+      [ngClass]="{'background-grey': category.description, 'green-text': category.description}">
+    {{category.description || "Açıklama mevcut değil"}}
+  </li>
+  
+</ul>
