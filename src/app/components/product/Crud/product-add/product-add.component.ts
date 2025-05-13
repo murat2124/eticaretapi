@@ -4,6 +4,8 @@ import { CategoryService } from 'src/app/sevices/category.service';
 import { Category } from 'src/app/Models/category';
 import { ProductService } from 'src/app/sevices/product.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-product-add',
@@ -17,7 +19,8 @@ export class ProductAddComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private categoryService: CategoryService,
-    private productService:ProductService
+    private productService:ProductService,
+    private tostrService:ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -27,12 +30,13 @@ export class ProductAddComponent implements OnInit {
 
   // Formu oluşturma
   createForm() {
+    const today=formatDate(new Date(),"yyyy-MM-DD","en");
     this.productAddForm = this.fb.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
       price: ['', Validators.required],
       stock: ['', Validators.required],
-      createdDate: ['', Validators.required],
+      createdDate: [today, Validators.required],
       categoryId: ['', Validators.required],
     });
   }
@@ -67,6 +71,9 @@ productAdd() {
   this.productService.productAddS(productModel).subscribe(
     (response) => {
       console.log("Ürün başarıyla eklendi:", response);
+      this.tostrService.success("ürün ekleme başarılı")
+
+      
     },
     (err: HttpErrorResponse) => {
       console.error('Hata oluştu:', err);

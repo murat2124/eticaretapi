@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { ProductComponent } from '../product.component';
 import { ProductAddComponent } from '../Crud/product-add/product-add.component';
 import { ProductDeleteComponent } from '../Crud/product-delete/product-delete.component';
-import { ProductUpdateComponent } from '../Crud/product-update/product-update.component';
+
 
 
 
@@ -17,6 +17,9 @@ import { CategoryFilterPipe } from 'src/app/category-filter.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from 'src/app/app-routing.module';
 import { RouterModule } from '@angular/router';
+import { ProductUpdateComponent } from '../Crud/product-update/product-update.component';
+
+
 
 
 
@@ -27,15 +30,17 @@ ProductComponent,
 ProductAddComponent,
 ProductDeleteComponent,
 ProductUpdateComponent,
+
 FilterPipe,CategoryFilterPipe
 
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    ToastrModule.forRoot(),
+    ToastrModule,
+ 
     FormsModule,HttpClientModule,BrowserAnimationsModule,AppRoutingModule
   ],
-  exports:[ProductComponent,ProductAddComponent]
+  exports:[ProductAddComponent,ProductUpdateComponent,ProductDeleteComponent]
 })
 export class ProductModule { }

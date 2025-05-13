@@ -1,1 +1,61 @@
-<p>product-update works!</p>
+
+<form [formGroup]="productUpForm" (ngSubmit)="onSubmit()">
+
+  <div>
+    <label for="id">ID</label>
+    <input id="id" formControlName="id" type="text" />
+    <div *ngIf="productUpForm.get('id')?.invalid && productUpForm.get('id')?.touched">
+      ID is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="name">Name</label>
+    <input id="name" formControlName="name" type="text" />
+    <div *ngIf="productUpForm.get('name')?.invalid && productUpForm.get('name')?.touched">
+      Name is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="description">Description</label>
+    <textarea id="description" formControlName="description"></textarea>
+    <div *ngIf="productUpForm.get('description')?.invalid && productUpForm.get('description')?.touched">
+      Description is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="price">Price</label>
+    <input id="price" formControlName="price" type="number" step="0.01" />
+    <div *ngIf="productUpForm.get('price')?.invalid && productUpForm.get('price')?.touched">
+      Price is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="stock">Stock</label>
+    <input id="stock" formControlName="stock" type="number" />
+    <div *ngIf="productUpForm.get('stock')?.invalid && productUpForm.get('stock')?.touched">
+      Stock is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="createdDate">Created Date</label>
+    <input id="createdDate" formControlName="createdDate" type="date" />
+    <div *ngIf="productUpForm.get('createdDate')?.invalid && productUpForm.get('createdDate')?.touched">
+      Created Date is required.
+    </div>
+  </div>
+
+  <div>
+    <label for="categoryId">Category ID</label>
+    <input id="categoryId" formControlName="categoryId" type="text" />
+    <div *ngIf="productUpForm.get('categoryId')?.invalid && productUpForm.get('categoryId')?.touched">
+      Category ID is required.
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="productUpForm.invalid">Submit</button>
+</form>

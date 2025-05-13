@@ -13,8 +13,10 @@ import { UserComponent } from './components/user/user.component';
 import { NavComponent } from './components/nav/nav.component';
 
 import { ProductModule } from './components/product/product/product.module';
-import { ProductComponent } from './components/product/product.component';
-import { ProductAddComponent } from './components/product/Crud/product-add/product-add.component';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -27,12 +29,15 @@ import { ProductAddComponent } from './components/product/Crud/product-add/produ
     SupplierComponent,
     UserComponent,
     NavComponent,
+   
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     RouterModule.forRoot([
-      { path: '', component: ProductComponent }, // Yönlendirme örneği
-      { path: 'products', component: ProductAddComponent },
+    
+      
       // Diğer rotalar...
     ]),
     ProductModule,  // ProductModule'u buraya dahil ettik
