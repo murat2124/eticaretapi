@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ListResponseModel } from '../Models/ListResponseModel';
 import { Product } from '../Models/product';
 import { ReturnStatement } from '@angular/compiler';
+import { SingleResponseModel } from '../Models/SingleResponseModel';
 
 @Injectable({
   providedIn: 'root'
@@ -34,4 +35,21 @@ export class ProductService {
       return this.httpClient.post<ListResponseModel<Product>>(addApi,product)
 
    }
+
+   
+   productDeleteS(productId:Number):Observable<ListResponseModel<Product>>{
+
+    let addApi=this.apiUrl+"delete"
+
+      return this.httpClient.post<ListResponseModel<Product>>(addApi,{id:productId})
+
+   }
+
+  getProductById(id: number): Observable<SingleResponseModel<Product>> {
+  const url = `${this.apiUrl}getbyid?id=${id}`;  // URL'yi burada oluşturuyoruz
+  return this.httpClient.get<SingleResponseModel<Product>>(url);  // URL ile HTTP GET isteği gönderiyoruz
+}
+
+
+
 }

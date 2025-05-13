@@ -1,36 +1,50 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
+import { Router } from '@angular/router';
+import { ProductService } from 'src/app/sevices/product.service';
 
 @Component({
   selector: 'app-product-delete',
-  templateUrl: './product-delete.component.html',
-  styleUrls: ['./product-delete.component.css']
+  templateUrl: './product-delete.component.html'
 })
 export class ProductDeleteComponent {
-  
-  // Reactive form
   productDeleteForm: FormGroup;
 
-  // Constructor
-  constructor(private fb: FormBuilder) {
-    // Form oluşturuluyor
+  constructor(
+    private fb: FormBuilder,
+    private productService: ProductService,
+    private router: Router
+  ) {
     this.productDeleteForm = this.fb.group({
-      id: ['', Validators.required] // ID alanı zorunlu
+      id: ['', Validators.required]
     });
   }
 
-  // Silme işlemi için form submit
-  onDeleteSubmit(): void {
-    if (this.productDeleteForm.valid) {
-      const productId = this.productDeleteForm.get('id')?.value;
-      // Burada silme işlemini gerçekleştirecek bir servis veya API çağrısı yapmalısınız.
-      console.log(`Product with ID ${productId} will be deleted.`);
-
-      // Örnek olarak başarılı bir silme işlemi için kullanıcıya bilgi verelim
-      alert(`Product with ID ${productId} has been deleted successfully!`);
-      
-      // Formu sıfırlayabiliriz
-      this.productDeleteForm.reset();
+  // Ürünü silme işlemi
+  deleteProduct() {
+    const id = Number(this.productDeleteForm.value.id);
+    if (!id) {
+      alert("Lütfen geçerli bir ürün ID girin.");
+      return;
     }
+
+    // Silme onayı alıyoruz
+    const confirmDelete = confirm("Bu ürünü silmek istediğinizden emin misiniz?");
+    if (!confirmDelete) return;
+
+    // Silme işlemi servisi çağırıyoruz
+    this.productService.productDeleteS(id).subscribe({
+      next: () => {
+        alert('Ürün başarıyla silindi.');
+        this.productDeleteForm.reset();
+
+        // Silme işlemi sonrası ana sayfaya yönlendiriyoruz
+        this.router.navigate(['/']); // Ana sayfaya yönlendirme
+      },
+      error: () => {
+        alert('Silme işlemi başarısız oldu.');
+      }
+    });
   }
 }

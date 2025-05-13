@@ -1,19 +1,16 @@
+<form [formGroup]="productDeleteForm" class="container mt-4">
 
-<form [formGroup]="productDeleteForm" (ngSubmit)="onDeleteSubmit()" class="container mt-4">
-
+  <!-- ID Giriş Alanı -->
   <div class="row mb-3">
     <div class="col-md-6">
-      <label for="id" class="form-label">Product ID (to delete)</label>
-      <input id="id" formControlName="id" type="text" class="form-control" />
-      <div *ngIf="productDeleteForm.get('id')?.invalid && productDeleteForm.get('id')?.touched" class="text-danger">
-        ID is required to delete the product.
-      </div>
+      <label for="id" class="form-label">Product ID</label>
+      <input id="id" formControlName="id" type="number" class="form-control" />
+    </div>
+    <div class="col-md-6 d-flex align-items-end">
+      <button type="button" class="btn btn-danger" (click)="deleteProduct()">
+        Ürünü Sil
+      </button>
     </div>
   </div>
 
-  <div class="mb-3">
-    <p>Are you sure you want to delete this product?</p>
-  </div>
-
-  <button type="submit" [disabled]="productDeleteForm.invalid" class="btn btn-danger">Delete</button>
 </form>
