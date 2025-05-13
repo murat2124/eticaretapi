@@ -1,0 +1,30 @@
+.custom-navbar {
+  background: linear-gradient(90deg, #0d47a1, #1976d2); /* mavi geçiş */
+  padding: 0.75rem 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.custom-navbar .nav-link {
+  color: white !important;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.custom-navbar .nav-link:hover {
+  color: #ffeb3b !important;
+}
+
+.custom-navbar .navbar-brand {
+  color: white !important;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.dropdown-menu {
+  background-color: #f1f1f1;
+}
+
+.dropdown-item:hover {
+  background-color: #1976d2;
+  color: white;
+}
