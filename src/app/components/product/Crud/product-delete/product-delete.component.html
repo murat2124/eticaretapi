@@ -1,15 +1,37 @@
 <form [formGroup]="productDeleteForm" class="container mt-4">
-
+  
   <!-- ID Giriş Alanı -->
   <div class="row mb-3">
     <div class="col-md-6">
       <label for="id" class="form-label">Product ID</label>
-      <input id="id" formControlName="id" type="number" class="form-control" />
+      <input id="id" formControlName="id" type="number" class="form-control" placeholder="Ürün ID girin" />
     </div>
+
     <div class="col-md-6 d-flex align-items-end">
       <button type="button" class="btn btn-danger" (click)="deleteProduct()">
         Ürünü Sil
       </button>
+    </div>
+  </div>
+
+  <!-- Ürünlerin Listelendiği Alan -->
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Ürün ID</th>
+            <th>Ürün Adı</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Ürünleri listeleme -->
+          <tr *ngFor="let product of products">
+            <td>{{ product.id }}</td>
+            <td>{{ product.name }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
