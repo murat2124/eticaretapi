@@ -1,7 +1,11 @@
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+import { Product } from 'src/app/Models/product';
+import { ProductService } from 'src/app/sevices/product.service';
 
 @Component({
   selector: 'app-product-update',
@@ -10,12 +14,18 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ProductUpdateComponent implements OnInit {
   productUpForm: FormGroup;
+products:Product[]=[]
+
+
   constructor(
     private httpClient: HttpClient,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private productSerive:ProductService,private toastrService:ToastrService
+    
   ) {}
   ngOnInit(): void {
     this.createProductUpForm();
+    this.getProducts();
   }
 
   createProductUpForm() {
@@ -38,5 +48,20 @@ export class ProductUpdateComponent implements OnInit {
     this.productUpForm.markAllAsTouched(); // Hatalı alanları göster
     console.warn("Form is invalid!");
   }
+ 
 }
+
+ getProducts(){
+
+      this.productSerive.getallProducts().subscribe(respnse=>{
+
+
+        this.products=respnse.data;
+        this.toastrService.info("kayıtlar geldi")
+
+
+      })
+
+    
+  }
 }

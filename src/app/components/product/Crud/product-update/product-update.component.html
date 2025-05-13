@@ -1,4 +1,5 @@
 <form [formGroup]="productUpForm" (ngSubmit)="onSubmit()" class="container mt-4">
+  <h3>Ürün Güncelleme</h3>
 
   <div class="row mb-3">
     <div class="col-md-6">
@@ -60,5 +61,35 @@
     </div>
   </div>
 
-  <button type="submit" [disabled]="productUpForm.invalid" class="btn btn-primary">Submit</button>
+  <!-- Submit Butonu -->
+  <button type="submit" [disabled]="productUpForm.invalid" class="btn btn-primary btn-lg w-100">
+    Submit
+  </button>
 </form>
+
+<!-- Ürün Listesi -->
+<table class="table table-striped mt-4">
+  <thead>
+    <tr>
+      <th>Ürün ID</th>
+      <th>Ürün Adı</th>
+      <th>Description</th>
+      <th>Price</th>
+      <th>Stock</th>
+      <th>Created Date</th>
+      <th>Category ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Ürünleri listeleme -->
+    <tr *ngFor="let product of products">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.price | currency }}</td>
+      <td>{{ product.stock }}</td>
+      <td>{{ product.createdDate | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ product.categoryId }}</td>
+    </tr>
+  </tbody>
+</table>

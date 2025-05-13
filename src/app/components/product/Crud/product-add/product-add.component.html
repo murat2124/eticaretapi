@@ -62,24 +62,22 @@
         </div>
 
         <!-- Kategori -->
-
-        
-<div class="mb-4">
-  <label for="categoryId" class="form-label">Kategori</label>
-  <select 
-    class="form-select" 
-    id="categoryId" 
-    formControlName="categoryId"
-    [ngClass]="{ 'is-invalid': productAddForm.get('categoryId').invalid && productAddForm.get('categoryId').touched }">
-    <option value="" disabled selected>Kategori seçin</option>
-    <option *ngFor="let category of categories" [value]="category.id">
-      {{ category.name }}
-    </option>
-  </select>
-  <div *ngIf="productAddForm.get('categoryId').invalid && productAddForm.get('categoryId').touched" class="invalid-feedback">
-    Kategori seçmek zorunludur.
-  </div>
-</div>
+        <div class="mb-4">
+          <label for="categoryId" class="form-label">Kategori</label>
+          <select 
+            class="form-select" 
+            id="categoryId" 
+            formControlName="categoryId"
+            [ngClass]="{ 'is-invalid': productAddForm.get('categoryId').invalid && productAddForm.get('categoryId').touched }">
+            <option value="" disabled selected>Kategori seçin</option>
+            <option *ngFor="let category of categories" [value]="category.id">
+              {{ category.name }}
+            </option>
+          </select>
+          <div *ngIf="productAddForm.get('categoryId').invalid && productAddForm.get('categoryId').touched" class="invalid-feedback">
+            Kategori seçmek zorunludur.
+          </div>
+        </div>
 
         <!-- Kaydet Butonu -->
         <button 
@@ -87,8 +85,7 @@
           class="btn btn-success w-100" 
           [disabled]="!productAddForm.valid"
           style="font-weight: bold;" 
-          (click)="productAdd()"
-          >
+          (click)="productAdd()">
           Kaydet
         </button>
 
