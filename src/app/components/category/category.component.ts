@@ -27,7 +27,7 @@ currentCategory:Category;
 
   getCategory(){
 
-    this.categoryService.getallCategorys().subscribe(response=>{
+    this.categoryService.getCategories().subscribe(response=>{
 
 
       this.categorys=response.data;  

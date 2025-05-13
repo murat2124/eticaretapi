@@ -1,54 +1,77 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';  // HttpClient import edin
+import { CategoryService } from 'src/app/sevices/category.service';
+import { Category } from 'src/app/Models/category';
+import { ProductService } from 'src/app/sevices/product.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-product-add',
   templateUrl: './product-add.component.html',
-  styleUrls: ['./product-add.component.css']
+  styleUrls: ['./product-add.component.css'],
 })
 export class ProductAddComponent implements OnInit {
-
   productAddForm: FormGroup;
-  categories: any[] = [];  // Kategoriler dizisini tanımlıyoruz
+  categories: Category[] = [];
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
+  constructor(
+    private fb: FormBuilder,
+    private categoryService: CategoryService,
+    private productService:ProductService
+  ) {}
 
   ngOnInit(): void {
-    this.createAddForm();
-    this.getCategories();  // Kategorileri API'den çekiyoruz
+    this.createForm();
+    this.getCategories(); // Kategorileri al
   }
 
-  // Formu oluşturuyoruz
-  createAddForm() {
-    this.productAddForm = this.formBuilder.group({
-      name: ["", Validators.required],
-      description: ["", Validators.required],
-      price: ["", Validators.required],
-      stock: ["", Validators.required],
-      createdDate: ["", Validators.required],
-      categoryId: ["", Validators.required],  // Kategori seçimi
+  // Formu oluşturma
+  createForm() {
+    this.productAddForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      price: ['', Validators.required],
+      stock: ['', Validators.required],
+      createdDate: ['', Validators.required],
+      categoryId: ['', Validators.required],
     });
   }
 
-  // Kategorileri API'den çekiyoruz
+  // Kategorileri API'den almak
   getCategories() {
-    this.http.get<any[]>('https://your-api-endpoint.com/categories')
-      .subscribe(response => {
-        this.categories = response;  // API'den gelen kategoriler
-        console.log(this.categories);  // Kategorileri kontrol etmek için
-      }, error => {
-        console.error('Kategoriler yüklenemedi', error);  // Hata durumunda
-      });
+    this.categoryService.getCategories().subscribe({
+      next: (response) => {
+        this.categories = response.data; // Kategoriler verisi
+      },
+      error: (err) => {
+        console.error('Kategoriler alınamadı', err);
+      },
+    });
   }
 
-  // Formu göndermek
+  // Formu submit etme
   onSubmit() {
     if (this.productAddForm.valid) {
-      console.log("Form gönderiliyor:", this.productAddForm.value);
-      // Burada API çağrısı veya başka işlemler yapılabilir.
+      const productModel = this.productAddForm.value;
+      console.log('Form verisi  ');
+      // Ürün ekleme işlemini burada gerçekleştirebilirsiniz.
     } else {
-      console.log("Form geçerli değil.");
+      console.warn('Form geçerli değil.');
     }
   }
+
+productAdd() {
+  let productModel = Object.assign({}, this.productAddForm.value);
+  console.log("Gönderilen Ürün Verisi:", productModel);
+
+  this.productService.productAddS(productModel).subscribe(
+    (response) => {
+      console.log("Ürün başarıyla eklendi:", response);
+    },
+    (err: HttpErrorResponse) => {
+      console.error('Hata oluştu:', err);
+    }
+  );
+}
+
 }

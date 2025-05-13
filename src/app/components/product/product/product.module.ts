@@ -16,6 +16,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CategoryFilterPipe } from 'src/app/category-filter.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from 'src/app/app-routing.module';
+import { RouterModule } from '@angular/router';
 
 
 

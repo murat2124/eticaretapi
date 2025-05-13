@@ -49,7 +49,7 @@ export class ProductComponent implements OnInit {
   }
 
   getCategories() {
-    this.categoryService.getallCategorys().subscribe((response) => {
+    this.categoryService.getCategories().subscribe((response) => {
       this.categories = response.data; // Kategorileri al
     });
   }
