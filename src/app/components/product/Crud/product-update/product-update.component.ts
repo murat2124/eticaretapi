@@ -1,7 +1,7 @@
 import { formatDate } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵclearResolutionOfComponentResourcesQueue } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Product } from 'src/app/Models/product';
@@ -64,4 +64,37 @@ products:Product[]=[]
 
     
   }
+
+  updateProduct(){
+
+   let formModel=Object.assign({},this.productUpForm.value)
+
+      this.productSerive.productUpdateService(formModel).subscribe(respnse=>{
+
+            if(respnse.success){
+
+                this.toastrService.success("güncelleme  başarılı")
+                window.location.reload(); 
+            }
+            else{
+           
+              this.toastrService.error(respnse.message)
+            }
+
+      })
+
+  }
+ fillForm(product: Product) {
+  this.productUpForm.patchValue({
+    id: product.id,
+    name: product.name,
+    description: product.description,
+    price: product.price,
+    stock: product.stock,
+    createdDate: formatDate(product.createdDate, 'yyyy-MM-dd', 'en'),
+    categoryId: product.categoryId,
+  });
+}
+
+
 }

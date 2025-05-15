@@ -62,7 +62,7 @@
   </div>
 
   <!-- Submit Butonu -->
-  <button type="submit" [disabled]="productUpForm.invalid" class="btn btn-primary btn-lg w-100">
+  <button type="submit" [disabled]="productUpForm.invalid" class="btn btn-primary btn-lg w-100" (click)="updateProduct()">
     Submit
   </button>
 </form>
@@ -90,6 +90,12 @@
       <td>{{ product.stock }}</td>
       <td>{{ product.createdDate | date: 'dd/MM/yyyy' }}</td>
       <td>{{ product.categoryId }}</td>
+      <td>
+        <button class="btn btn-sm btn-outline-primary" (click)="fillForm(product)">
+          Formu Doldur
+        </button>
+      </td>
     </tr>
+    
   </tbody>
 </table>
