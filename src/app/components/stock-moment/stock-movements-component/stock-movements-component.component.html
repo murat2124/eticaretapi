@@ -1,0 +1,58 @@
+<!-- stock-movements-component.component.html -->
+<div class="stock-movements-container">
+  <h1>Stok Hareketleri</h1>
+
+  <!-- Stok hareketlerinin listelendiği tablo -->
+  <table *ngIf="stockMovements.length > 0; else noDataTemplate">
+    <thead>
+      <tr>
+        <th>Ürün ID</th>
+        <th>Miktar</th>
+        <th>Tür</th>
+        <th>Açıklama</th>
+        <th>Tarih</th>
+        <th>İşlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let stockMovement of stockMovements">
+        <td>{{ stockMovement.ProductId }}</td>
+        <td>{{ stockMovement.Quantity }}</td>
+        <td>{{ stockMovement.Type }}</td>
+        <td>{{ stockMovement.Description }}</td>
+        <td>{{ stockMovement.Date | date: 'dd/MM/yyyy' }}</td>
+        <td>
+          <button (click)="selectStockMovement(stockMovement)">Düzenle</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Eğer veri yoksa gösterilecek mesaj -->
+  <ng-template #noDataTemplate>
+    <p>Henüz stok hareketi bulunmamaktadır.</p>
+  </ng-template>
+
+  <!-- Güncelleme formu -->
+  <div *ngIf="selectedStockMovement.ProductId">
+    <h2>Stok Hareketi Güncelleme</h2>
+    <form (ngSubmit)="updateStockMovement()">
+      <label for="productId">Ürün ID:</label>
+      <input type="number" [(ngModel)]="selectedStockMovement.ProductId" name="productId" required />
+      <label for="quantity">Miktar:</label>
+      <input type="number" [(ngModel)]="selectedStockMovement.Quantity" name="quantity" required />
+      <label for="type">Tür:</label>
+      <select [(ngModel)]="selectedStockMovement.Type" name="type" required>
+        <option value="giriş">Giriş</option>
+        <option value="çıkış">Çıkış</option>
+      </select>
+      <label for="description">Açıklama:</label>
+      <input type="text" [(ngModel)]="selectedStockMovement.Description" name="description" />
+      <label for="date">Tarih:</label>
+      <input type="date" [(ngModel)]="selectedStockMovement.Date" name="date" required />
+
+      <button type="submit">Güncelle</button>
+    </form>
+  </div>
+</div>
+

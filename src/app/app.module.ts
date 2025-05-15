@@ -7,7 +7,7 @@ import { CategoryComponent } from './components/category/category.component';
 import { CustomerComponent } from './components/customer/customer.component';
 import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 import { OrderComponent } from './components/order/order.component';
-import { StockMomentComponent } from './components/stock-moment/stock-moment.component';
+
 import { SupplierComponent } from './components/supplier/supplier.component';
 import { UserComponent } from './components/user/user.component';
 import { NavComponent } from './components/nav/nav.component';
@@ -17,6 +17,12 @@ import { ProductModule } from './components/product/product/product.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
+import { StockMovementModule } from './components/stock-moment/stock-movement/stock-movement.module';
+
+
+
+
+
 
 @NgModule({
   declarations: [
@@ -25,10 +31,12 @@ import { ToastrModule } from 'ngx-toastr';
     CustomerComponent,
     OrderDetailComponent,
     OrderComponent,
-    StockMomentComponent,
+
     SupplierComponent,
     UserComponent,
     NavComponent,
+
+ 
    
   ],
   imports: [
@@ -40,7 +48,7 @@ import { ToastrModule } from 'ngx-toastr';
       
       // Diğer rotalar...
     ]),
-    ProductModule,  // ProductModule'u buraya dahil ettik
+    ProductModule, StockMovementModule
   ],
   providers: [],
   bootstrap: [AppComponent],
