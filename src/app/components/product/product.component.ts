@@ -38,7 +38,9 @@ export class ProductComponent implements OnInit {
     this.productService.getallProducts().subscribe((response) => {
       this.products = response.data;
 
-      this.toastrService.info("verileriniz geldi...")
+      this.toastrService.success('İşlem başarılı!', 'Başlık', {
+  positionClass: 'toast-top-left'  // veya 'toast-bottom-left', 'toast-top-center' vb.
+});
     });
   }
 
