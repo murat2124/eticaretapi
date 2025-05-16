@@ -1,9 +1,8 @@
 <!-- stock-movements-component.component.html -->
 <div class="stock-movements-container">
-  <h1>Deyişiklik Yapılan 
-     Stok Hareketleri</h1>
+  <h1>Deyişiklik Yapılan Stok Hareketleri</h1>
 
-  <!-- Stok hareketlerinin listelendiği tablo -->
+  <!-- Stok hareket tablosu -->
   <table *ngIf="stockMovements && stockMovements.length > 0; else noDataTemplate">
     <thead>
       <tr>
@@ -18,73 +17,81 @@
     <tbody>
       <tr *ngFor="let stockMovement of stockMovements">
         <td>{{ stockMovement.productId }}</td>
-<td>{{ stockMovement.quantity }}</td>
-<td>{{ stockMovement.type }}</td>
-<td>{{ stockMovement.description }}</td>
-<td>{{ stockMovement.date | date: 'dd/MM/yyyy' }}</td>
-
-      <!-- <td>
-          <button (click)="selectStockMovement(stockMovement)">Düzenle</button>
-        </td>
-
-        --> 
+        <td>{{ stockMovement.quantity }}</td>
+        <td>{{ stockMovement.type }}</td>
+        <td>{{ stockMovement.description }}</td>
+        <td>{{ stockMovement.date | date: 'dd/MM/yyyy' }}</td>
+        <td> <!-- Düzenleme kaldırılmışsa boş kalabilir --></td>
       </tr>
     </tbody>
   </table>
 
-  <!-- Eğer veri yoksa gösterilecek mesaj -->
+  <!-- Veri yoksa -->
   <ng-template #noDataTemplate>
     <p>Henüz stok hareketi bulunmamaktadır.</p>
   </ng-template>
 
-  <!-- Güncelleme formu -->
-  <div *ngIf="selectedStockMovement.ProductId">
-    <h2>Stok Hareketi Güncelleme</h2>
-    <form (ngSubmit)="updateStockMovement()">
-      <label for="productId">Ürün ID:</label>
-      <input type="number" [(ngModel)]="selectedStockMovement.ProductId" name="productId" required />
-      <label for="quantity">Miktar:</label>
-      <input type="number" [(ngModel)]="selectedStockMovement.Quantity" name="quantity" required />
-      <label for="type">Tür:</label>
-      <select [(ngModel)]="selectedStockMovement.Type" name="type" required>
-        <option value="giriş">Giriş</option>
-        <option value="çıkış">Çıkış</option>
-      </select>
-      <label for="description">Açıklama:</label>
-      <input type="text" [(ngModel)]="selectedStockMovement.Description" name="description" />
-      <label for="date">Tarih:</label>
-      <input type="date" [(ngModel)]="selectedStockMovement.Date" name="date" required />
+  <!-- Stok Güncelleme Formu -->
+  <div *ngIf="selectedStockMovement.ProductId !== null" id="stokForm" class="stok-form">
+    <h2 class="stok-baslik">
+      <i class="fa fa-edit"></i> Stok Hareketini Düzenle
+    </h2>
+    
+    <p class="urun-bilgisi">
+      🛒 <strong>{{ selectedStockMovement.ProductName }}</strong>
+      <span style="color: #888">(ID: {{ selectedStockMovement.ProductId }})</span>
+    </p>
 
-      <button type="submit">Güncelle</button>
+    <form (ngSubmit)="updateStockMovement()" class="form-alani">
+      <div class="form-row">
+        <label>Miktar:</label>
+        <input type="number" [(ngModel)]="selectedStockMovement.Quantity" name="quantity" required />
+      </div>
+
+      <div class="form-row">
+        <label>Açıklama:</label>
+        <input type="text" [(ngModel)]="selectedStockMovement.Description" name="description" />
+      </div>
+
+      <div class="form-row">
+        <label>Tarih:</label>
+        <input type="text" [(ngModel)]="selectedStockMovement.Date" name="date" readonly />
+      </div>
+
+      <button type="submit" class="btn-guncelle">Güncelle</button>
     </form>
   </div>
+
+  <!-- Ürün Listesi -->
   <h1>ÜRÜNLER</h1>
-  <tr>
-      <th>ID</th>
-      <th>Ad</th>
-      <th>Açıklama</th>
-      <th>Fiyat</th>
-      <th>Stok</th>
-      <th>Oluşturulma Tarihi</th>
-      <th>Kategori ID</th>
-      <th>İşlem</th>
-    </tr>
- <tr *ngFor="let product of products">
-      <td>{{ product.id }}</td>
-      <td>{{ product.name }}</td>
-      <td>{{ product.description }}</td>
-      <td>{{ product.price | currency }}</td>
-      <td>{{ product.stock }}</td>
-      <td>{{ product.createdDate | date: 'dd/MM/yyyy' }}</td>
-      <td>{{ product.categoryId }}</td>
-      <td>
-        <button class="btn btn-sm btn-outline-primary" >
-         Stok Miktarını  Düzenle
-        </button>
-      </td>
-    </tr>
-
-  
-
+  <table class="urun-tablosu">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Ad</th>
+        <th>Açıklama</th>
+        <th>Fiyat</th>
+        <th>Stok</th>
+        <th>Oluşturulma Tarihi</th>
+        <th>Kategori ID</th>
+        <th>İşlem</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.id }}</td>
+        <td>{{ product.name }}</td>
+        <td>{{ product.description }}</td>
+        <td>{{ product.price | currency }}</td>
+        <td>{{ product.stock }}</td>
+        <td>{{ product.createdDate | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ product.categoryId }}</td>
+        <td>
+          <button class="btn-duzenle" (click)="selectProductForStockUpdate(product)">
+            Stok Miktarını Düzenle
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-

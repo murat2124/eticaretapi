@@ -11,14 +11,14 @@ import { StockMovementService } from 'src/app/sevices/stock-movement.service';
 export class StockMovementsComponentComponent implements OnInit {
   stockMovements: any[] = []; // Tüm stok hareketleri
   products:Product[]=[];
-  selectedStockMovement: any = {
-    ProductId: null,
-    Quantity: null,
-    Type: null,
-    Description: '',
-    Date: null,
-  }; // Seçilen (düzenlenecek) stok hareketi
-
+selectedStockMovement: any = {
+  ProductId: null,
+  Quantity: null,
+  Type: '',
+  Description: '',
+  Date: '',
+  ProductName: ''
+};
   constructor(private stockMovementService: StockMovementService,private productService:ProductService) {}
 
   ngOnInit(): void {
@@ -49,24 +49,49 @@ export class StockMovementsComponentComponent implements OnInit {
 
   // Bir stok hareketini düzenlemek için seç
   selectStockMovement(stockMovement: any): void {
-    this.selectedStockMovement = { ...stockMovement }; // Kopyasını al
-    console.log('Düzenlenecek stok hareketi:', this.selectedStockMovement);
+    this.selectedStockMovement = { ...stockMovement }; 
+   Date: new Date().toISOString().slice(0, 10) // Bugünün tarihi
   }
 
   updateStockMovement(): void {
     if (!this.selectedStockMovement || !this.selectedStockMovement.ProductId) {
-      console.error('Güncellenecek stok hareketi eksik.');
-      return;
-    }
+    console.error('Güncellenen stok hareketi eksik.');
+    return;
+  }
 
-    this.stockMovementService.update(this.selectedStockMovement).subscribe({
-      next: (response) => {
-        console.log('Stok hareketi başarıyla güncellendi:', response);
-        this.getAllStockMovements(); // Listeyi yenile
-      },
-      error: (err) => {
-        console.error('Stok hareketi güncellenirken hata oluştu:', err);
-      },
-    });
+  this.stockMovementService.update(this.selectedStockMovement).subscribe({
+    next: () => {
+      console.log('Stok hareketi güncellendi.');
+      this.getAllStockMovements(); // Listeyi yenile
+      this.selectedStockMovement = { ProductId: null, Quantity: null, Type: null, Description: '', Date: new Date().toISOString().slice(0, 10) };
+    },
+    error: (err) => {
+      console.error('Güncelleme hatası:', err);
+    }
+  });
+  }
+
+  selectProductForStockUpdate(product: any): void {
+   this.selectedStockMovement = {
+    ProductId: product.id,
+    Quantity: null,
+    Type: 'giriş',
+    Description: '',
+    Date: new Date().toISOString().slice(0, 10),
+    ProductName: product.name // burası yeni
+  };
+  };
+
+
+  onProductSelect(productId: number): void {
+  // Ürün listesinden, seçilen ID'ye göre ürünü buluyoruz
+  const selectedProduct = this.products.find(product => product.id === productId);
+
+  if (selectedProduct) {
+    this.selectedStockMovement.ProductName = selectedProduct.name;  // Ürün adını ekliyoruz
+  } else {
+    this.selectedStockMovement.ProductName = '';  // Eğer ürün bulunmazsa ad boş kalsın
   }
 }
+}
+
