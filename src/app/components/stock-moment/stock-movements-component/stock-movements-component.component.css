@@ -92,3 +92,13 @@ button:hover {
 .edit-form button:hover {
   background-color: #0056b3;
 }
+h1 {
+  background-color: #d2c66c;  /* Arka plan rengini yeşil yaptık */
+  color: white;               /* Yazı rengini beyaz yaptık */
+  padding: 20px;              /* Başlık çevresine boşluk ekledik */
+  text-align: center;         /* Başlığı ortaladık */
+  border-radius: 10px;        /* Köşelere yuvarlaklık ekledik */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Hafif gölge efekti ekledik */
+  font-family: 'Arial', sans-serif; /* Fontu değiştirdik */
+  margin-bottom: 30px;         /* Başlık altına boşluk ekledik */
+}

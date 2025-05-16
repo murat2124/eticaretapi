@@ -1,6 +1,7 @@
 <!-- stock-movements-component.component.html -->
 <div class="stock-movements-container">
-  <h1>Stok Hareketleri</h1>
+  <h1>Deyişiklik Yapılan 
+     Stok Hareketleri</h1>
 
   <!-- Stok hareketlerinin listelendiği tablo -->
   <table *ngIf="stockMovements && stockMovements.length > 0; else noDataTemplate">
@@ -22,9 +23,11 @@
 <td>{{ stockMovement.description }}</td>
 <td>{{ stockMovement.date | date: 'dd/MM/yyyy' }}</td>
 
-        <td>
+      <!-- <td>
           <button (click)="selectStockMovement(stockMovement)">Düzenle</button>
         </td>
+
+        --> 
       </tr>
     </tbody>
   </table>
@@ -55,5 +58,33 @@
       <button type="submit">Güncelle</button>
     </form>
   </div>
+  <h1>ÜRÜNLER</h1>
+  <tr>
+      <th>ID</th>
+      <th>Ad</th>
+      <th>Açıklama</th>
+      <th>Fiyat</th>
+      <th>Stok</th>
+      <th>Oluşturulma Tarihi</th>
+      <th>Kategori ID</th>
+      <th>İşlem</th>
+    </tr>
+ <tr *ngFor="let product of products">
+      <td>{{ product.id }}</td>
+      <td>{{ product.name }}</td>
+      <td>{{ product.description }}</td>
+      <td>{{ product.price | currency }}</td>
+      <td>{{ product.stock }}</td>
+      <td>{{ product.createdDate | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ product.categoryId }}</td>
+      <td>
+        <button class="btn btn-sm btn-outline-primary" >
+         Stok Miktarını  Düzenle
+        </button>
+      </td>
+    </tr>
+
+  
+
 </div>
 

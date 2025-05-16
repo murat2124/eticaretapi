@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from 'src/app/Models/product';
+import { ProductService } from 'src/app/sevices/product.service';
 import { StockMovementService } from 'src/app/sevices/stock-movement.service';
 
 @Component({
@@ -8,6 +10,7 @@ import { StockMovementService } from 'src/app/sevices/stock-movement.service';
 })
 export class StockMovementsComponentComponent implements OnInit {
   stockMovements: any[] = []; // Tüm stok hareketleri
+  products:Product[]=[];
   selectedStockMovement: any = {
     ProductId: null,
     Quantity: null,
@@ -16,10 +19,20 @@ export class StockMovementsComponentComponent implements OnInit {
     Date: null,
   }; // Seçilen (düzenlenecek) stok hareketi
 
-  constructor(private stockMovementService: StockMovementService) {}
+  constructor(private stockMovementService: StockMovementService,private productService:ProductService) {}
 
   ngOnInit(): void {
     this.getAllStockMovements();
+    this.getallProdct();
+  }
+  getallProdct(){
+
+      this.productService.getallProducts().subscribe(response=>{
+
+        this.products=response.data;
+      })
+
+
   }
 
   // Tüm stok hareketlerini getir
