@@ -12,17 +12,17 @@ export class StockMovementService {
   apiUrl="https://localhost:44376/Api/StockMoments/";
   constructor(private httpClient:HttpClient) { }
 
-    getall():Observable<ListResponseModel<StockMomement>>{
+    getall():Observable<StockMomement[]>{
 
 
       let apiGetall=this.apiUrl+"getall"
-        return this.httpClient.get<ListResponseModel<StockMomement>>(apiGetall)
+        return this.httpClient.get<StockMomement[]>(apiGetall)
 
     }
 
-    update(StockMomement:StockMomement):Observable<ListResponseModel<StockMomement>>{
-        let apiUpdate=this.apiUrl+"getall"
-        return this.httpClient.post<ListResponseModel<StockMomement>>(apiUpdate,apiUpdate)
+    update(stockMomement:StockMomement):Observable<ListResponseModel<StockMomement>>{
+        let apiUpdate=this.apiUrl+"update"
+        return this.httpClient.post<ListResponseModel<StockMomement>>(apiUpdate,stockMomement)
 
     }
 
