@@ -9,7 +9,7 @@
         <th>Ürün ID</th>
         <th>Miktar</th>
         <th>Tür</th>
-        <th>Açıklama</th>
+     
         <th>Tarih</th>
         <th>İşlemler</th>
       </tr>
@@ -19,7 +19,7 @@
         <td>{{ stockMovement.productId }}</td>
         <td>{{ stockMovement.quantity }}</td>
         <td>{{ stockMovement.type }}</td>
-        <td>{{ stockMovement.description }}</td>
+       
         <td>{{ stockMovement.date | date: 'dd/MM/yyyy' }}</td>
         <td> <!-- Düzenleme kaldırılmışsa boş kalabilir --></td>
       </tr>
@@ -48,10 +48,7 @@
         <input type="number" [(ngModel)]="selectedStockMovement.Quantity" name="quantity" required />
       </div>
 
-      <div class="form-row">
-        <label>Açıklama:</label>
-        <input type="text" [(ngModel)]="selectedStockMovement.Description" name="description" />
-      </div>
+    
 
       <div class="form-row">
         <label>Tarih:</label>
